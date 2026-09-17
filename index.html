@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINCA CHINCHIPE - Sistema Bovino</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="franja-verde">
+        <h1>FINCA CHINCHIPE - Sistema Bovino</h1>
+        <p>Zamora Chinchipe - Gestión Ganadera</p>
+    </header>
+
+    <div class="menu-botones">
+        <a href="index.html" class="btn-menu activo">🐄 Ganado</a>
+        <a href="compradores.html" class="btn-menu">👤 Compradores</a>
+    </div>
+
+    <div class="contadores-burbujas">
+        <div class="burbuja">
+            <span class="numero" id="total">0</span>
+            <span class="texto">Total</span>
+        </div>
+        <div class="burbuja">
+            <span class="numero" id="pesoTotal">0 kg</span>
+            <span class="texto">Peso</span>
+        </div>
+        <div class="burbuja verde">
+            <span class="numero" id="activos">0</span>
+            <span class="texto">Activos</span>
+        </div>
+    </div>
+
+    <div class="form-box">
+        <h3>Registrar Bovino</h3>
+        <form id="formGanado">
+            <input type="text" id="arete" placeholder="N° Arete Ej: 001-CH" required>
+            <select id="raza">
+                <option value="Brahman">Brahman</option>
+                <option value="Gyr">Gyr</option>
+                <option value="Holstein">Holstein</option>
+                <option value="Brown Swiss">Brown Swiss</option>
+                <option value="Charoláis">Charoláis</option>
+                <option value="Jersey">Jersey</option>
+                <option value="Azul Belga">Azul Belga</option>
+                <option value="Simmental">Simmental</option>
+                <option value="Angus">Angus</option>
+                <option value="Nelore">Nelore</option>
+            </select>
+            <input type="number" id="peso" placeholder="Peso (kg)" required>
+            <select id="estado">
+                <option value="Activo">Activo</option>
+                <option value="Vendido">Vendido</option>
+                <option value="Sacrificado">Sacrificado</option>
+            </select>
+            <button type="submit">Guardar en BD</button>
+        </form>
+    </div>
+
+    <h3 class="subtitulo">Tabla De Ganado</h3>
+    <table>
+        <thead>
+            <tr><th>Arete</th><th>Raza</th><th>Peso</th><th>Estado</th><th>X</th></tr>
+        </thead>
+        <tbody id="tabla"></tbody>
+    </table>
+
+    <footer>Esneyder Alexander Pineda Montenegro - Chinchipe 2026</footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compradores - Finca Chinchipe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="franja-verde">
+        <h1>FINCA CHINCHIPE - Compradores</h1>
+        <p>Registro de Compradores de Ganado</p>
+    </header>
+
+    <div class="menu-botones">
+        <a href="index.html" class="btn-menu">🐄 Ganado</a>
+        <a href="compradores.html" class="btn-menu activo">👤 Compradores</a>
+    </div>
+
+    <div class="contadores-burbujas">
+        <div class="burbuja">
+            <span class="numero" id="totalComp">0</span>
+            <span class="texto">Compradores</span>
+        </div>
+        <div class="burbuja verde">
+            <span class="numero" id="totalVentas">0</span>
+            <span class="texto">Ventas</span>
+        </div>
+    </div>
+
+    <div class="form-box">
+        <h3>Registrar Comprador</h3>
+        <form id="formComprador">
+            <input type="text" id="nombreComp" placeholder="Nombre del comprador" required>
+            <input type="text" id="cedula" placeholder="Cédula / RUC" required>
+            <input type="tel" id="telefono" placeholder="Teléfono Ej: 099..." required>
+            <input type="text" id="areteCompra" placeholder="Arete del bovino comprado Ej: 001-CH" required>
+            <input type="number" id="precio" placeholder="Precio de compra $" required>
+            <button type="submit">Guardar Comprador</button>
+        </form>
+    </div>
+
+    <h3 class="subtitulo">Tabla: compradores (PostgreSQL)</h3>
+    <table>
+        <thead>
+            <tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Arete</th><th>Precio</th><th>X</th></tr>
+        </thead>
+        <tbody id="tablaCompradores"></tbody>
+    </table>
+
+    <footer>Esneyder Alexander Pineda Montenegro - Chinchipe 2026</footer>
+    <script src="compradores.js"></script>
+</body>
+</html>

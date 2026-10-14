@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compradores - Finca Chinchipe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="franja-verde">
+        <h1>FINCA CHINCHIPE - Compradores</h1>
+        <p>Registro de Compradores de Ganado</p>
+        <button id="btnModo">🌙</button>
+    </header>
+
+    <section class="menu-botones">
+        <a href="index.html" class="btn-menu">🐄 Ganado</a>
+        <a href="compradores.html" class="btn-menu activo">👤 Compradores</a>
+    </section>
+
+    <section class="contadores-burbujas">
+        <section class="burbuja">
+            <span class="numero" id="totalComp">0</span>
+            <span class="texto">Compradores</span>
+        </section>
+        <section class="burbuja verde">
+            <span class="numero" id="totalVentas">0</span>
+            <span class="texto">Ventas</span>
+        </section>
+    </section>
+
+    <section class="form-box">
+        <h3>Registrar Comprador</h3>
+        <form id="formComprador">
+            <input type="text" id="nombreComp" placeholder="Nombre del comprador" required>
+            <input type="text" id="cedula" placeholder="Cédula" required>
+            <input type="tel" id="telefono" placeholder="Teléfono Ej: 099..." required>
+            <input type="text" id="areteCompra" placeholder="Arete del bovino comprado Ej: 001-CH" required>
+            <input type="number" id="precio" placeholder="Precio de compra $" required>
+            <button type="submit">Guardar Comprador</button>
+        </form>
+    </section>
+
+    <h3 class="subtitulo">Tabla: compradores</h3>
+    <table>
+        <thead>
+            <tr><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Arete</th><th>Precio</th><th>X</th></tr>
+        </thead>
+        <tbody id="tablaCompradores"></tbody>
+    </table>
+
+        <footer>Esneyder Alexander Pineda Montenegro - Chinchipe 2026</footer>
+    <script src="compradores.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const btnModo = document.getElementById('btnModo');
+        if (!btnModo) return;
+        if(localStorage.getItem('modo') === 'oscuro'){
+          document.body.classList.add('oscuro');
+          btnModo.textContent = '☀️';
+        }
+        btnModo.addEventListener('click', () => {
+          document.body.classList.toggle('oscuro');
+          const oscuro = document.body.classList.contains('oscuro');
+          localStorage.setItem('modo', oscuro ? 'oscuro' : 'claro');
+          btnModo.textContent = oscuro ? '☀️' : '🌙';
+        });
+      });
+    </script>
+</body>
+</html>

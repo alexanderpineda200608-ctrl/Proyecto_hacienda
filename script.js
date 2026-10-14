@@ -1,7 +1,24 @@
+// DETECTA DONDE ESTÁS
+const esGithub = location.hostname.includes('github.io');
+const API = esGithub ? null : '/api/ganado';
+
+function getGanadoLocal(){
+  return JSON.parse(localStorage.getItem('ganado') || '[]');
+}
+function setGanadoLocal(data){
+  localStorage.setItem('ganado', JSON.stringify(data));
+}
+
 async function cargar() {
   try {
-    const res = await fetch('/api/ganado');
-    const data = await res.json();
+    let data;
+    if(esGithub){
+      data = getGanadoLocal();
+    } else {
+      const res = await fetch('/api/ganado');
+      data = await res.json();
+    }
+
     const tabla = document.getElementById('tabla');
     tabla.innerHTML = '';
     let totalPeso = 0;
@@ -29,8 +46,15 @@ async function cargar() {
 }
 
 async function eliminar(id) {
-  await fetch('/api/ganado/' + id, { method: 'DELETE' });
-  cargar();
+  if(esGithub){
+    let data = getGanadoLocal();
+    data = data.filter(a => a.id != id);
+    setGanadoLocal(data);
+    cargar();
+  } else {
+    await fetch('/api/ganado/' + id, { method: 'DELETE' });
+    cargar();
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,15 +71,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!arete || !peso){ alert('Llena arete y peso'); return; }
       
     btn.innerText = 'Guardando...';
-    const r = await fetch('/api/ganado', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ arete, raza, peso, estado })
-    });
-    
-    const j = await r.json();
-    if(j.error){ alert('Error PG: ' + j.error); }
-    else { form.reset(); cargar(); }
+
+    if(esGithub){
+      // MODO GITHUB - guarda en navegador
+      let data = getGanadoLocal();
+      data.push({ id: Date.now(), arete, raza, peso, estado });
+      setGanadoLocal(data);
+      form.reset();
+      cargar();
+    } else {
+      // MODO LOCALHOST - guarda en PostgreSQL
+      const r = await fetch('/api/ganado', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ arete, raza, peso, estado })
+      });
+      
+      const j = await r.json();
+      if(j.error){ alert('Error PG: ' + j.error); }
+      else { form.reset(); cargar(); }
+    }
     
     btn.innerText = 'Guardar en BD';
   });
